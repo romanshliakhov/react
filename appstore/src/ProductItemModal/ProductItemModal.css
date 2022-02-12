@@ -1,0 +1,9 @@
+.modal {
+    position: absolute;
+    width: 350px;
+    min-height: 350px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #e7e7e7;
+}

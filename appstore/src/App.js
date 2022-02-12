@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
-import './App.css';
+import { ProductItem } from './ProductItem/ProductItem';
+import { v4 as uuidv4 } from 'uuid';
+import './App.css'
+
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state =  {
-      text: 'Hello second',
-      number: 2,
+    this.state = {
+      productItems: [
+        {
+          id: 'safa',
+          title: 'Buy something',
+          description: 'Buy drinks',
+        }
+      ],
     }
   }
 
   render () { 
     return (
-      <div className="App">  
-        <p>{this.props.text}</p>
-        <p>{this.state.text}</p>
-        <button onClick={ () => { 
-          this.setState({ 
-            text: 'Clicked' + this.state.number,
-            number: ++this.state.number, 
-              }) 
-            }}
-          >Hi</button>
+      <div className="app">  
+        {this.state.productItems.map((item) => (<ProductItem key={item.id} item={item} />))}
       </div>
     )
   }
