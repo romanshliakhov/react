@@ -1,0 +1,198 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 30px;
+  line-height: 36px;
+  font-weight: 400;
+}
+
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+input,
+textarea,
+select {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: inherit;
+}
+
+a {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.container {
+    max-width: 1000px;
+    padding: 0 12px;
+    margin: 0 auto;
+}
+
+.header {
+    background-image: url(nix.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 150px;
+}
+
+.main {
+    padding-top: 30px;    
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+  margin-top: 40px;
+  text-align: center;
+}
+
+
+/* spollers  */
+.lessons__list {
+  margin: 50px auto 0;
+}
+
+.lessons__list-item {
+  padding-bottom: 30px;
+  border-bottom: 1px solid #B3B4CA;
+}
+
+.lessons__list-item + .lessons__list-item {
+  margin-top: 32px;
+}
+
+.lessons__list-title {
+  position: relative;
+  width: 100%;
+  text-align: left;  
+  font-size: 32px;
+  line-height: 41px;
+  font-weight: 500;  
+  cursor: pointer;  
+}
+
+.lessons__list-title:hover {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(98.59deg, #4E55FF 8.54%, #3A7CFD 34.57%, #24A1FB 62.94%, #00DAF8 109.42%);
+  transition: 0.5s ease-in;
+}
+
+
+.lessons__list-title::before,
+.lessons__list-title::after {
+  content: "";
+  width: 18px;
+  height: 2px;
+  background-color: #2B2D65;
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  transition: transform 0.3s ease 0s;
+}
+
+.lessons__list-title::after {
+  transform: rotate(-90deg);
+}
+
+.lessons__list-title._active::after {
+  transform: rotate(45deg);
+}
+
+.lessons__list-title._active::before {
+  transform: rotate(-45deg);
+}
+
+.lessons__list-title._active {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(98.59deg, #4E55FF 8.54%, #3A7CFD 34.57%, #24A1FB 62.94%, #00DAF8 109.42%);
+}
+
+.lessons__list-details {  
+  padding-top: 25px;
+  
+}
+
+.lessons__list-details:hover {  
+  padding-top: 25px;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(92.05deg, #FFAB5D 7.98%, #FEE97B 131.44%);
+  transition: 0.6s ease-in;
+}
+
+/* mini projects */
+.projects {
+  padding: 50px 0;    
+}
+
+.projects__items {
+  text-align: center;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(98.59deg, #4E55FF 8.54%, #3A7CFD 34.57%, #24A1FB 62.94%, #00DAF8 109.42%);
+  transition: 0.6s ease-in;
+}
+
+.projects__items:hover {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(92.05deg, #FFAB5D 7.98%, #FEE97B 131.44%);
+  transition: 0.6s ease-in;
+}
+
+.projects__items + .projects__items {
+  margin-top: 25px;
+}
+  
