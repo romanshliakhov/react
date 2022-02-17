@@ -8,6 +8,7 @@ export class ProductItemModal extends Component {
                 <p>{this.props.item.title}</p>
                 <p>{this.props.item.description}</p>
                 <p>{this.props.item.category}</p>
+                <button onClick={this.props.onHideModal}>Hide</button>
             </div>            
         )
     }
