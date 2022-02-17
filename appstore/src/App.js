@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { ProductItem } from './ProductItem/ProductItem';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css'
+import { ProductItemModal } from './ProductItemModal/ProductItemModal';
 
+const mapItem = (item) => {
+  return (<ProductItem key={item.id} item={item} />)
+}
 
 class App extends Component {
   constructor(props) {
@@ -11,8 +15,9 @@ class App extends Component {
       productItems: [
         {
           id: 'safa',
-          title: 'Buy something',
-          description: 'Buy drinks',
+          title: 'Название товара',
+          description: 'Прозводитель товара',
+          category: 'Категория',
         }
       ],
     }
@@ -21,7 +26,8 @@ class App extends Component {
   render () { 
     return (
       <div className="app">  
-        {this.state.productItems.map((item) => (<ProductItem key={item.id} item={item} />))}
+        {this.state.productItems.map(mapItem)}
+        <ProductItemModal item={this.state} />
       </div>
     )
   }

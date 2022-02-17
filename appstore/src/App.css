@@ -1,5 +1,9 @@
 .app {
   padding: 50px;
+  background-color: #e7e7e7;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 }
 
 
