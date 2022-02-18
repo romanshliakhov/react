@@ -1,15 +1,66 @@
 import React, { Component } from 'react';
-import Product from './Product';
-// import { ProductsList } from './ProductsList/ProductsList';
-// import { ProductsListButtons } from './CarsListButtons/CarsListButtons';
-// import { AddItemModal } from './AddItemModal/AddItemModal';
+import { ProductsList } from './ProductsList/ProductsList';
+import { ProductsListButtons } from './ProductsListButtons/ProductsListButtons';
+import { AddProductModal } from './AddProductModal/AddProductModal';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css'
+
 
 class App extends Component {
   constructor(props) {
     super(props);    
+    this.onAddItem = ({ title, description, category}) => {
+      this.setState({
+        isAddModalVisible: false,
+        products: [
+          ...this.state.products,          
+          {
+            id: uuidv4(),
+            title,
+            description,
+            category
+          }
+        ]
+      })
+    }
+
+    this.onModalClose = () => {
+      this.setState({
+        isAddModalVisible: false,   
+        editingProduct: null,       
+      })
+    }
+
+    this.onEditItem = (id) => {
+      const product = this.state.products.find((product) => product.id === id)
+      this.setState({
+        isAddModalVisible: true,
+        editingProduct: product,
+      })
+    }
+
+    this.onApplyEditItem = (product) => {
+      this.setState({
+        isAddModalVisible: false,
+        editingProduct: null,
+        products: this.state.products.map((stateProduct) => {
+          if (stateProduct.id === product.id){
+            return product;
+          }
+          return stateProduct;
+        })
+      })
+      
+    }
+
+    this.onDeleteItem = (id) => {
+      this.setState({
+        products: this.state.products.filter((product) => product.id !== id)         
+      })
+    }
+
     this.state = {
+      isAddModalVisible: false,
       products: [
         {
           id: uuidv4(),
@@ -41,6 +92,12 @@ class App extends Component {
           description: 'SAMSUNG',
           category: 'Смартфоны',
         },
+        {
+          id: uuidv4(),
+          title: 'Холодильник LG GA-B509SLSM',
+          description: 'LG',
+          category: 'Холодильники',
+        },
         
       ],
     }
@@ -50,33 +107,20 @@ class App extends Component {
     return (
       <div className="app">  
         <h1>Товары на складе</h1>  
-        {this.state.products.map((product, i) => {
-          return (
-            <Product 
-              key={product.id}
-              product={product} 
-            />
-          )
-        } )}
-
-        <button 
-          onClick={() => { 
-            this.setState({ 
-              products: [...this.state.products,
-                { 
-                  title: 'Телевизор 1',
-                  description: 'SAMSUNG 2',
-                  category: 'Телевизоры 3',
-                }
-              ] 
-            }) 
-          }}>Add Item</button> 
-
-          <button 
-          onClick={() => { 
-            this.setState({ 
-              products: this.state.products.slice(0, this.state.products.length - 1) }) 
-          }}>Remove Item</button>  
+        <ProductsList 
+          products={this.state.products} 
+          onDeleteItem = {this.onDeleteItem}         
+          onEditItem = {this.onEditItem}         
+        />
+        <ProductsListButtons onAddClicked={ () => { this.setState({ isAddModalVisible: true })} } />
+        {this.state.isAddModalVisible ? 
+        <AddProductModal 
+          onAddItemClick={this.onAddItem} 
+          onEditItemClick = {this.onApplyEditItem} 
+          onCloseAddProductModalClick={this.onModalClose} 
+          product = {this.state.editingProduct}
+        /> 
+        : null}
       </div>
     )
   }

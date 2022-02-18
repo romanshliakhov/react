@@ -1,0 +1,17 @@
+.main-rows {
+display: flex;
+justify-content: space-between;
+max-width: 85%;
+width: 100%;
+}
+
+.main-item {
+flex-basis: 33%;
+text-align: center;
+}
+
+
+
+.main-item:first-child {
+text-align: left;
+}
