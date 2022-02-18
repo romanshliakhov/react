@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ProductItem } from './ProductItem/ProductItem';
 import { ProductItemModal } from './ProductItemModal/ProductItemModal';
+import { ProductItemAddModal } from './ProductItemAddModal/ProductItemAddModal';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css'
 
@@ -10,6 +11,7 @@ class App extends Component {
     super(props);    
     this.state = {
       isModalVisible: false,
+      isModalAddVisible: false,
       itemIndexToView: 0,
       productItems: [
         {
@@ -24,7 +26,7 @@ class App extends Component {
     this.mapItem = this.mapItem.bind(this);
   }
 
-  mapItem(item) {
+  mapItem(item, i) {
     return (
     <ProductItem 
       key={item.id} 
@@ -67,7 +69,11 @@ class App extends Component {
       }}
 
       onShowItem={() => { 
-        this.setState({ isModalVisible: true });        
+        this.setState({ 
+          isModalVisible: true,
+          itemIndexToView: i,
+        });       
+        
       }}
     />)
   }
@@ -75,6 +81,7 @@ class App extends Component {
   render () { 
     return (
       <div className="app">  
+        <h1>Товары на складе</h1>  
         {this.state.productItems.map(this.mapItem)}
         {this.state.isModalVisible ? 
         <ProductItemModal 
@@ -83,6 +90,30 @@ class App extends Component {
             this.setState({ isModalVisible: false })
           }}
         /> : null}
+        {this.state.isModalAddVisible ? 
+        <ProductItemAddModal   
+          onAddItem={( {title, description, category}) => {
+            this.setState({
+              isModalAddVisible: false,
+              productItems: [
+                ...this.state.productItems,
+                {
+                  id: uuidv4(),
+                  title,
+                  description,
+                  category,
+                }
+              ]
+            })
+          }}
+        
+          onHideModal={() => {
+            this.setState({ isModalAddVisible: false })
+          }}
+        /> : null}    
+        <br/>
+        <br/>    
+        <button onClick={() => { this.setState({ isModalAddVisible: true })}}>Add Item</button>
       </div>
     )
   }
