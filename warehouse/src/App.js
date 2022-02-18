@@ -4,6 +4,7 @@ import { ProductsListButtons } from './ProductsListButtons/ProductsListButtons';
 import { AddProductModal } from './AddProductModal/AddProductModal';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css'
+import { Filter } from './Filter/Filter';
 
 
 class App extends Component {
@@ -51,6 +52,33 @@ class App extends Component {
         })
       })
       
+    }
+
+    this.onFilterTitle = (value) =>{
+      if(value){
+        this.setState({
+          isFiltered: true,
+          filteredProducts: [...this.state.products].filter((product) => product.title.toLowerCase().includes(value.toLowerCase())
+        )}) 
+      } else {
+        this.setState({
+          ...this.state.products,
+        })
+      }
+    }
+
+    this.onFilterCategory = (value) =>{
+      if(value){
+        this.setState({
+          isFiltered: true,
+         filteredProducts: [...this.state.products].filter((product) => product.category.toLowerCase().includes(value.toLowerCase())
+       )}
+     )
+     }else{
+       this.setState({
+         ...this.state.products,
+       })
+     }
     }
 
     this.onDeleteItem = (id) => {
@@ -107,8 +135,12 @@ class App extends Component {
     return (
       <div className="app">  
         <h1>Товары на складе</h1>  
+        <Filter 
+          onFilterTitle = {this.onFilterTitle}
+          onFilterCategory = {this.onFilterCategory}
+        />
         <ProductsList 
-          products={this.state.products} 
+          products={this.state.isFiltered? this.state.filteredProducts : this.state.products}
           onDeleteItem = {this.onDeleteItem}         
           onEditItem = {this.onEditItem}         
         />
