@@ -13,13 +13,38 @@ class App extends Component {
       isModalVisible: false,
       isModalAddVisible: false,
       itemIndexToView: 0,
-      productItems: [
+      products: [
         {
           id: uuidv4(),
-          title: 'Название товара',
-          description: 'Прозводитель товара',
-          category: 'Категория',
-        }
+          title: 'Телевизор UE43AU7100UXUA ',
+          description: 'SAMSUNG',
+          category: 'Телевизоры',
+        },
+        {
+          id: uuidv4(),
+          title: 'Телевизор QE55Q60AAUXUA',
+          description: 'SAMSUNG',
+          category: 'Телевизоры',
+        },
+        {
+          id: uuidv4(),
+          title: 'Телевизор 43UP81006LA',
+          description: 'LG',
+          category: 'Телевизоры',
+        },
+        {
+          id: uuidv4(),
+          title: 'Смартфон APPLE iPhone 13',
+          description: 'APPLE',
+          category: 'Смартфоны',
+        },
+        {
+          id: uuidv4(),
+          title: 'Смартфон SAMSUNG Galaxy S22',
+          description: 'SAMSUNG',
+          category: 'Смартфоны',
+        },
+        
       ],
     }
 
@@ -32,7 +57,7 @@ class App extends Component {
       key={item.id} 
       item={item} 
       onTitleChange={(text) => {
-        this.setState({ productItems: this.state.productItems.map((currentItem) => {
+        this.setState({ products: this.state.products.map((currentItem) => {
           if (currentItem.id === item.id) {
             return {
               ...currentItem,
@@ -44,7 +69,7 @@ class App extends Component {
       });
       }}
       onDescriptionChange={(text) => {
-        this.setState({ productItems: this.state.productItems.map((currentItem) => {
+        this.setState({ products: this.state.products.map((currentItem) => {
           if (currentItem.id === item.id) {
             return {
               ...currentItem,
@@ -56,7 +81,7 @@ class App extends Component {
       });
       }}
       onCategoryChange={(text) => {
-        this.setState({ productItems: this.state.productItems.map((currentItem) => {
+        this.setState({ products: this.state.products.map((currentItem) => {
           if (currentItem.id === item.id) {
             return {
               ...currentItem,
@@ -68,7 +93,7 @@ class App extends Component {
       });
       }}
 
-      onShowItem={() => { 
+      onEditItem={() => { 
         this.setState({ 
           isModalVisible: true,
           itemIndexToView: i,
@@ -82,10 +107,10 @@ class App extends Component {
     return (
       <div className="app">  
         <h1>Товары на складе</h1>  
-        {this.state.productItems.map(this.mapItem)}
+        {this.state.products.map(this.mapItem)}
         {this.state.isModalVisible ? 
         <ProductItemModal 
-          item={this.state.productItems[this.state.itemIndexToView]} 
+          item={this.state.products[this.state.itemIndexToView]} 
           onHideModal={() => {
             this.setState({ isModalVisible: false })
           }}
@@ -95,8 +120,8 @@ class App extends Component {
           onAddItem={( {title, description, category}) => {
             this.setState({
               isModalAddVisible: false,
-              productItems: [
-                ...this.state.productItems,
+              products: [
+                ...this.state.products,
                 {
                   id: uuidv4(),
                   title,

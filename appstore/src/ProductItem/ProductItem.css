@@ -1,7 +1,28 @@
-h1 {
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 75%;
+}
+
+.main + .main {
+    margin-top: 25px;
+}
+
+.main-rows {
+    display: flex;
+    justify-content: space-between;
+    max-width: 85%;
+    width: 100%;
+}
+
+.main-item {
+    flex-basis: 33%;
     text-align: center;
 }
 
-input + input {
-    margin-left: 50px;
+
+
+.main-item:first-child {
+    text-align: left;
 }

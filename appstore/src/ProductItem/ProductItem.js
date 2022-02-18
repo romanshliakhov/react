@@ -21,15 +21,22 @@ export class ProductItem extends Component {
         this.props.onCategoryChange(event.target.value);        
     }
 
-
-
     render () {
         return (
             <div className="main">    
-                <input value={this.props.item.title} onChange={this.onTitleChange} />
-                <input value={this.props.item.description} onChange={this.onDescriptionChange}/>    
-                <input value={this.props.item.category} onChange={this.onCategoryChange}/> 
-                <button onClick={this.props.onShowItem}>Show</button>                              
+                <div className="main-rows">
+                    <div className="main-item">{this.props.item.title || " - "}</div>
+                    <div className="main-item">{this.props.item.description || " - "}</div>
+                    <div className="main-item">{this.props.item.category || " - "}</div>
+                </div>
+                <div className="main-btns">
+                    <button onClick={this.props.onEditItem}>Edit</button>                              
+                    {/* <button onClick={this.props.onDeleteItem}>Delete</button>    */}
+                    <button onClick={() => {
+                        this.setState({ 
+                            productItems: this.state.productItems.slice(0, this.state.productItems.length -1 ) })
+                    }}>Delete</button>  
+                </div>                              
             </div>
         )
     }
