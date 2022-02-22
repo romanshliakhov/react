@@ -1,144 +1,213 @@
-import React, { Component } from 'react';
-import { ProductItem } from './ProductItem/ProductItem';
-import { ProductItemModal } from './ProductItemModal/ProductItemModal';
-import { ProductItemAddModal } from './ProductItemAddModal/ProductItemAddModal';
-import { v4 as uuidv4 } from 'uuid';
+import React, {
+  Component
+} from 'react';
+import {
+  Header
+} from './Header/Header';
+import {
+  ProductsList
+} from './ProductsList/ProductsList';
+import {
+  ProductsModal
+} from './ProductsModal/ProductsModal';
+import {
+  ProductsListButtons
+} from './ProductsListButtons/ProductsListButtons';
+import {
+  Filters
+} from './Filters/Filters';
+import {
+  v4 as uuidv4
+} from 'uuid';
 import './App.css'
 
 
 class App extends Component {
   constructor(props) {
-    super(props);    
-    this.state = {
-      isModalVisible: false,
-      isModalAddVisible: false,
-      itemIndexToView: 0,
-      products: [
-        {
-          id: uuidv4(),
-          title: 'Телевизор UE43AU7100UXUA ',
-          description: 'SAMSUNG',
-          category: 'Телевизоры',
-        },
-        {
-          id: uuidv4(),
-          title: 'Телевизор QE55Q60AAUXUA',
-          description: 'SAMSUNG',
-          category: 'Телевизоры',
-        },
-        {
-          id: uuidv4(),
-          title: 'Телевизор 43UP81006LA',
-          description: 'LG',
-          category: 'Телевизоры',
-        },
-        {
-          id: uuidv4(),
-          title: 'Смартфон APPLE iPhone 13',
-          description: 'APPLE',
-          category: 'Смартфоны',
-        },
-        {
-          id: uuidv4(),
-          title: 'Смартфон SAMSUNG Galaxy S22',
-          description: 'SAMSUNG',
-          category: 'Смартфоны',
-        },
-        
-      ],
+    super(props);
+
+    this.onAddItem = ({
+      title,
+      color,
+      size,
+      category
+    }) => {
+      this.setState({
+        isAddModalVisible: false,
+        products: [
+          ...this.state.products,
+          {
+            id: uuidv4(),
+            title,
+            color,
+            size,
+            category,
+          }
+        ]
+      })
     }
 
-    this.mapItem = this.mapItem.bind(this);
+    this.onModalClose = () => {
+      this.setState({
+        isAddModalVisible: false,
+        editingProduct: null,
+      })
+    }
+
+    this.onEditItem = (id) => {
+      const product = this.state.products.find((product) => product.id === id)
+      this.setState({
+        isAddModalVisible: true,
+        editingProduct: product,
+      })
+    }
+
+    this.onApplyEditItem = (product) => {
+      this.state.isFiltered ?
+        this.setState({
+          isAddModalVisible: false,
+          editingItem: null,
+          filteredProducts: this.state.filteredProducts.map((stateProduct) => {
+            if (stateProduct.id === product.id) {
+              return product;
+            }
+            return stateProduct;
+          }),
+          products: this.state.products.map((stateProduct) => {
+            if (stateProduct.id === product.id) {
+              return product;
+            }
+            return stateProduct;
+          }),
+        }) :
+        this.setState({
+          isAddModalVisible: false,
+          editingProduct: null,
+          products: this.state.products.map((stateProduct) => {
+            if (stateProduct.id === product.id) {
+              return product;
+            }
+            return stateProduct;
+          })
+        })
+    }
+
+    this.onDeleteItem = (id) => {
+      this.state.isFiltered ?
+        this.setState({
+          filteredProducts: this.state.filteredProducts.filter((product) => product.id !== id),
+          products: this.state.products.filter((product) => product.id !== id)
+
+        }) :
+        this.setState({
+          products: this.state.products.filter((product) => product.id !== id)
+        })
+    }
+
+    this.onFilterTitle = (value) => {
+      if (value && value !== '-') {
+        this.setState({
+          isFiltered: true,
+          filteredProducts: [...this.state.products].filter((product) => product.title.toLowerCase().includes(value.toLowerCase()))
+        })
+      } else if (value && value === '-') {
+        this.setState({
+          isFiltered: true,
+          filteredProducts: [...this.state.products].filter((product) => product.title === '')
+        })
+      } else {
+        this.setState({
+          isFiltered: false,
+          ...this.state.products,
+        })
+      }
+    }
+
+    this.onFilterCategory = (value) =>{
+      if(value && value !== '-'){
+        this.setState({
+          isFiltered: true,
+         filteredProducts: [...this.state.products].filter((product) => product.category.toLowerCase().includes(value.toLowerCase())
+       )}
+     )
+     }else if(value && value === '-'){
+      this.setState({
+        isFiltered: true,
+       filteredProducts: [...this.state.products].filter((product) => product.category === '')
+      })
+     }else{
+       this.setState({
+         isFiltered: false,
+         ...this.state.products,
+       })
+     }
+    }
+
+    this.state = {      
+      isModalAddVisible: false,
+      itemIndexToView: 0,
+      products: [{
+          id: uuidv4(),
+          title: 'iPhone 13 Pro',
+          color: 'Gold',
+          size: '128GB',
+          category: 'Смартфон',
+        },
+        {
+          id: uuidv4(),
+          title: 'iPad 8 32GB',
+          color: 'Space grеy',
+          size: '32GB',
+          category: 'Планшет',
+        },
+        {
+          id: uuidv4(),
+          title: 'MacBook Air M1 13',
+          color: 'Silver',
+          size: '256GB',
+          category: 'Ноутбук',
+        },
+        {
+          id: uuidv4(),
+          title: 'iPhone 12',
+          color: 'Green',
+          size: '64GB',
+          category: 'Смартфон',
+        },
+        {
+          id: uuidv4(),
+          title: ' iMac M1 24"',
+          color: 'Silver',
+          size: '1TB',
+          category: 'Компьютер',
+        },
+
+      ],
+      filteredProducts: [],
+    }
   }
 
-  mapItem(item, i) {
-    return (
-    <ProductItem 
-      key={item.id} 
-      item={item} 
-      onTitleChange={(text) => {
-        this.setState({ products: this.state.products.map((currentItem) => {
-          if (currentItem.id === item.id) {
-            return {
-              ...currentItem,
-              title: text,
-            }
-          }
-          return currentItem;
-        }) 
-      });
-      }}
-      onDescriptionChange={(text) => {
-        this.setState({ products: this.state.products.map((currentItem) => {
-          if (currentItem.id === item.id) {
-            return {
-              ...currentItem,
-              description: text,
-            }
-          }
-          return currentItem;
-        }) 
-      });
-      }}
-      onCategoryChange={(text) => {
-        this.setState({ products: this.state.products.map((currentItem) => {
-          if (currentItem.id === item.id) {
-            return {
-              ...currentItem,
-              category: text,
-            }
-          }
-          return currentItem;
-        }) 
-      });
-      }}
-
-      onEditItem={() => { 
-        this.setState({ 
-          isModalVisible: true,
-          itemIndexToView: i,
-        });       
-        
-      }}
-    />)
-  }
-
-  render () { 
-    return (
-      <div className="app">  
-        <h1>Товары на складе</h1>  
-        {this.state.products.map(this.mapItem)}
-        {this.state.isModalVisible ? 
-        <ProductItemModal 
-          item={this.state.products[this.state.itemIndexToView]} 
-          onHideModal={() => {
-            this.setState({ isModalVisible: false })
-          }}
-        /> : null}
-        {this.state.isModalAddVisible ? 
-        <ProductItemAddModal   
-          onAddItem={( {title, description, category}) => {
-            this.setState({
-              isModalAddVisible: false,
-              products: [
-                ...this.state.products,
-                {
-                  id: uuidv4(),
-                  title,
-                  description,
-                  category,
-                }
-              ]
-            })
-          }}
-        
-          onHideModal={() => {
-            this.setState({ isModalAddVisible: false })
-          }}
-        /> : null}    
-        <br/>
-        <br/>    
-        <button onClick={() => { this.setState({ isModalAddVisible: true })}}>Add Item</button>
+  render() {
+    return ( <div className = "app" >
+      < Header />
+      <Filters 
+        onFilterTitle = {this.onFilterTitle}
+        onFilterCategory = {this.onFilterCategory}
+      /> 
+      <ProductsList  
+        products = {this.state.isFiltered? this.state.filteredProducts : this.state.products}
+        onDeleteItem = {this.onDeleteItem}
+        onEditItem = {this.onEditItem}
+      />
+      <ProductsListButtons onAddClicked={ () => { this.setState({ isAddModalVisible: true })} } />
+      {this.state.isAddModalVisible ?
+      <ProductsModal
+        onAddItemClick = {this.onAddItem}
+        onEditItemClick = {this.onApplyEditItem}
+        onCloseAddProductModalClick = {this.onModalClose}
+        product = {this.state.editingProduct}
+        /> : null
+      } 
       </div>
     )
   }
