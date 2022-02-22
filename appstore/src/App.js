@@ -144,7 +144,7 @@ class App extends Component {
     }
 
     this.state = {      
-      isModalAddVisible: false,
+      isAddModalVisible: false,
       itemIndexToView: 0,
       products: [{
           id: uuidv4(),
@@ -206,7 +206,8 @@ class App extends Component {
         onEditItemClick = {this.onApplyEditItem}
         onCloseAddProductModalClick = {this.onModalClose}
         product = {this.state.editingProduct}
-        /> : null
+        />
+         : null
       } 
       </div>
     )
