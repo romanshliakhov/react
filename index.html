@@ -18,9 +18,60 @@
 
             <ul class="lessons__list" data-spollers data-one-spoller>
                 <li class="lessons__list-item">
-                    <button tabindex="-1" type="button" data-spoller class="lessons__list-title"><span>Приложение на классовых компонентах </span></button>
+                    <button tabindex="-1" type="button" data-spoller class="lessons__list-title"><span>Приложение Warehouse для учета товаров на складе на классовых компонентах </span></button>
+                    <div class="lessons__task">
+                        <h2>ДЗ на классовых компонентах</h2>   
+                        <div class="lessons__task-title">Минимум:</div>
+                        <ul class="lesssons__task-list">
+                            <li>Добавлять товар (обязательно иметь поле Category)</li>
+                            <li>Удалять товар</li>
+                            <li>Редактировать товар</li>
+                        </ul>           
+                        <div class="lessons__task-title">Хороший уровень:</div>
+                        <p class="lessons__task-descr">Фильтр товаров. Ищем по совпадению подстроки.</p>
+                        <ul class="lesssons__task-list">
+                            <li>Фильтр товаров по имени</li>
+                            <li>Фильтр товаров по категории</li>
+                        </ul>    
+                        <div class="lessons__task-title">Высокий уровень</div>
+                        <ul class="lesssons__task-list">
+                            <li>Задать заранее список категорий, который будет выбираться с помощью элемента select.</li>
+                            <li>Реализовать редактирование категорий</li>
+                            <li>Связать категорию и товар в магазине по ID категории</li>
+                        </ul>             
+                        <div class="lessons__task-answer">
+                            <a class="link" href="https://github.com/romanshliakhov/react/tree/main/warehouse">Код на Github</a>
+                            <a class="link" href="https://react-app-by-class.vercel.app/">Деплой проекта</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="lessons__list-item">
+                    <button tabindex="-1" type="button" data-spoller class="lessons__list-title"><span>Список товаров в магазине </span></button>
                     <div class="lessons__list-details">
-                        <a href="https://github.com/romanshliakhov/react/tree/main/warehouse/" target="_blank">Приложение для учета товаров на складе</a>
+                        <ol class="lessons__order-list">
+                            <li class="lessons__order-title">Сделать список товаров в магазине с полным редактированием и валидированием ввода. Поля товара:
+                                <ul class="lesssons__task-list">
+                                    <li>Title</li>
+                                    <li>Description</li>
+                                    <li>Type (category)</li>
+                                    <li>Price</li>
+                                    <li>Units</li>
+                                </ul>    
+                            </li>
+                            <li class="lessons__order-title">Сделать полное редактирование типов (категорий) товаров. Поля типа:
+                                <ul class="lesssons__task-list">
+                                    <li>id</li>
+                                    <li>title</li>
+                                </ul>   
+                            </li>
+                            <li class="lessons__order-title">Минимум логки должно быть в компонентах.</li>
+                            <li class="lessons__order-title">Сделать подсчет Total Price по выводимому списку с учетом фильтров.</li>
+                            <li class="lessons__order-title">Параметры фильтра и сортировки передавать через параметры URL</li>
+                        </ol>     
+                        <div class="lessons__task-answer">
+                            <a class="link" href="#">Код на Github</a>
+                            <a class="link" href="#">Деплой проекта</a>
+                        </div>  
                     </div>
                 </li>
             </ul>
